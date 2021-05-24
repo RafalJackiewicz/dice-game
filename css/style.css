@@ -1,8 +1,38 @@
 body{
-  background-color:#555fff;
+  background-color:#bdffce;
 
 }
 
-.container{
+.boardGame{
 
+}
+
+.scoreBoard{
+  text-align:center;
+}
+
+.scoreBoard > h2{
+  display:inline-block;
+}
+
+.playersBoard> div{
+  display:inline-block;
+}
+.playerOneBoard{
+  background-color:red;
+  width:30%;
+  height:100px;
+}
+
+.roundBoard{
+  background-color:green;
+  width:20%;
+  height:100px;
+
+}
+
+.playerTwoBoard{
+  background-color:blue;
+  width:40%;
+  height:100px;
 }
