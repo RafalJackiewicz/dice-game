@@ -48,7 +48,8 @@ h3 {
 }
 
 .dice {
-  font-size: 50px;
+  font-size: 8vw;
+  padding:10px;
   color: #4947d1;
 }
 
