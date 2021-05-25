@@ -1,43 +1,61 @@
-body{
-  background-color:#bdffce;
-
+body {
+  background-color: #bdffce;
 }
 
-.boardGame{
-
+/* ustalić wielkość tekstu */
+h1 {
+  font-size: 40px;
 }
 
-.scoreBoard{
-  text-align:center;
+h2 {
+  font-size: 32px;
 }
 
-.scoreBoard > h2{
-  display:inline-block;
+h3 {
+  font-size: 24px;
 }
 
-.playersBoard> div{
-  display:inline-block;
-}
-.playerOneBoard{
-  background-color:red;
-  width:30%;
-  height:100px;
+.scoreBoard {
+  text-align: center;
 }
 
-.roundBoard{
-  background-color:green;
-  width:20%;
-  height:100px;
-
+.scoreBoard>h2 {
+  display: inline-block;
 }
 
-.playerTwoBoard{
-  background-color:blue;
-  width:40%;
-  height:100px;
+.playersBoard {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(3, 1fr);
 }
 
-.kaczka{
-  font-size:40px;
-  color:white;
+.playerOneBoard {
+  background-color: #997960;
+  grid-column: 1/span 5;
+  grid-row: 1/-1;
+}
+
+.roundBoard {
+  grid-column: 6/ span 7;
+  grid-row: 1/-1;
+}
+
+.playerTwoBoard {
+  background-color: #997960;
+  grid-column: 8/span 12;
+  grid-row: 1/-1;
+  /* border-radius: 5px; */
+}
+
+.dice {
+  font-size: 50px;
+  color: #4947d1;
+}
+
+.playerOneBoard>div {
+  display: inline-block;
+}
+
+.playerTwoBoard>div {
+  display: inline-block;
 }
