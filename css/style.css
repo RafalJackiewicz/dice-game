@@ -1,5 +1,6 @@
 body {
   background-color: #bdffce;
+  font-family: 'Yanone Kaffeesatz', sans-serif;
 }
 
 /* ustalić wielkość tekstu */
@@ -48,15 +49,16 @@ h3 {
 }
 
 .dice {
-  font-size: 8vw;
-  padding:10px;
+  font-size: 7vw;
   color: #4947d1;
 }
 
-.playerOneBoard>div {
-  display: inline-block;
+.boardOfDice{
+  background-color: red;
+  margin-left:10px;
+  margin-right:10px;
 }
 
-.playerTwoBoard>div {
-  display: inline-block;
+.boardOfDice>div{
+  display:inline-block;
 }
