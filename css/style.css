@@ -16,7 +16,40 @@ h3 {
   font-size: 24px;
 }
 
+/* Properties of grid */
+.boardGame{
+  display:grid;
+  grid-template-columns: repeat(12,1fr);
+  /* grid-template-rows: repeat(6,1fr); */
+  grid-template-areas:
+  "pOne pOne pOne pOne pOne pOne pTwo pTwo pTwo pTwo pTwo pTwo"
+  "score score score score score score score score score score score score "
+  "nameOfPlayerOne nameOfPlayerOne nameOfPlayerOne nameOfPlayerOne nameOfPlayerOne button button nameOfPlayerTwo nameOfPlayerTwo nameOfPlayerTwo nameOfPlayerTwo nameOfPlayerTwo"
+  "resultPOne resultPOne resultPOne resultPOne resultPOne . . resultPTwo resultPTwo resultPTwo resultPTwo resultPTwo"
+  "boardPOne boardPOne boardPOne boardPOne boardPOne . . boardPTwo boardPTwo boardPTwo boardPTwo boardPTwo"
+  "boardPOne boardPOne boardPOne boardPOne boardPOne . . boardPTwo boardPTwo boardPTwo boardPTwo boardPTwo"
+
+}
+
+.nameOfPlayerOne{
+  grid-area:pOne;
+}
+
+.nameOfPlayerOne>h1{
+  text-align:right;
+}
+
+.nameOfPlayerTwo{
+  grid-area:pTwo;
+  margin-left:0;
+}
+
+.nameOfPlayerTwo>*{
+  display:inline-block;
+}
+
 .scoreBoard {
+  grid-area:score;
   text-align: center;
 }
 
@@ -24,39 +57,61 @@ h3 {
   display: inline-block;
 }
 
-.playersBoard {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  grid-template-rows: repeat(3, 1fr);
+/* Grid area */
+.playerOneBoard>div>h2{
+  grid-area:nameOfPlayerOne;
+}
+
+.playerOneBoard>div:nth-child(2){
+  grid-area:resultPOne;
+}
+
+.playerOneBoard .boardOfDice{
+  grid-area:boardPOne;
+}
+
+.roundBoard>div>input{
+  grid-area:button;
+}
+
+
+
+
+
+.playerOneBoard>div>h2{
+  grid-area:nameOfPlayerTwo;
+}
+
+.playerTwoBoard>div:nth-child(2){
+  grid-area:resultPTwo;
+}
+
+.playerTwoBoard .boardOfDice{
+  grid-area:boardPTwo;
 }
 
 .playerOneBoard {
   background-color: #997960;
-  grid-column: 1/span 5;
-  grid-row: 1/-1;
 }
 
 .roundBoard {
-  grid-column: 6/ span 7;
-  grid-row: 1/-1;
+
 }
 
 .playerTwoBoard {
   background-color: #997960;
-  grid-column: 8/span 12;
-  grid-row: 1/-1;
-  /* border-radius: 5px; */
-}
 
-.dice {
-  font-size: 7vw;
-  color: #4947d1;
 }
 
 .boardOfDice{
   background-color: red;
   margin-left:10px;
   margin-right:10px;
+}
+
+.dice{
+  height:auto;
+  width:100px;
 }
 
 .boardOfDice>div{
