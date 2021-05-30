@@ -6,57 +6,68 @@ body {
 /* ustalić wielkość tekstu */
 h1 {
   font-size: 50px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 h2 {
   font-size: 40px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 h3 {
-  font-size: 30px;
+  font-size: 32px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 /* Properties of grid */
 .boardGame {
   display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  /* grid-template-rows: repeat(6,1fr); */
+  grid-template-columns: repeat(5, 1fr) 50px 50px repeat(5, 1fr);
+  grid-template-rows: auto auto auto 30px auto;
+  gap: 10px;
+  max-width: 1500px;
+  margin-left: auto;
+  margin-right: auto;
   grid-template-areas:
     "pOne pOne pOne pOne pOne pOne pTwo pTwo pTwo pTwo pTwo pTwo"
-    "score score score score score score score score score score score score"
     "namePOne namePOne namePOne namePOne namePOne button button namePTwo namePTwo namePTwo namePTwo namePTwo"
     "resultPOne resultPOne resultPOne resultPOne resultPOne nameRound nameRound resultPTwo resultPTwo resultPTwo resultPTwo resultPTwo"
     "firstDicePOne secondDicePOne thirdDicePOne fourthDicePOne fifthDicePOne firstRoundPOne firstRoundPTwo firstDicePTwo secondDicePTwo thirdDicePTwo fourthDicePTwo fifthDicePTwo"
     "firstDicePOne secondDicePOne thirdDicePOne fourthDicePOne fifthDicePOne secondRoundPOne secondRoundPTwo firstDicePTwo secondDicePTwo thirdDicePTwo fourthDicePTwo fifthDicePTwo"
 }
 
-.headingOfPlayerOne {
+
+
+.scoreBoardOne {
   grid-area: pOne;
+  text-align: right;
+  margin-top: 40px;
 }
 
-.headingOfPlayerOne>h1 {
+.scoreBoardOne>h2, h1 {
+  display: inline-block;
   text-align: right;
 }
 
-.headingOfPlayerTwo {
+.countWinsPlayerOne, .countWinsPlayerTwo {
+  margin-left: 10px;
+  margin-right: 10px;
+  color: #db6318;
+}
+
+.scoreBoardTwo {
   grid-area: pTwo;
-  margin-left: 0;
+  margin-top: 40px;
 }
 
-.headingOfPlayerTwo>* {
+.scoreBoardTwo>* {
   display: inline-block;
+  text-align: left;
 }
 
-.scoreBoard {
-  grid-area: score;
-  text-align: center;
-}
-
-.scoreBoard>h2 {
-  display: inline-block;
-}
-
-/* od tego miejsca przerobić css grid */
 /* Grid area */
 .nameOfPlayerOne {
   grid-area: namePOne;
@@ -66,6 +77,8 @@ h3 {
 
 .resultOfPlayerOne {
   grid-area: resultPOne;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .firstDicePlayerOne {
@@ -115,10 +128,14 @@ h3 {
 
 .nameOfPlayerTwo {
   grid-area: namePTwo;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .resultOfPlayerTwo {
   grid-area: resultPTwo;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .firstDicePlayerTwo {
@@ -141,11 +158,43 @@ h3 {
   grid-area: fifthDicePTwo;
 }
 
+/* Changes */
 .nameRound, .firstRoundPOne, .firstRoundPTwo, .secondRoundPOne, .secondRoundPTwo {
   margin: auto;
 }
 
 .dice {
-  max-width: 100px;
-text-align:center;
+  max-width: 100%;
+  height: auto;
+}
+
+@media screen and (max-width:940px) {
+  .boardGame {
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(11,auto);
+    grid-column-gap:10px;
+    grid-row-gap:0px;
+    grid-template-areas:
+      "pOne pOne pOne pOne pOne pTwo pTwo pTwo pTwo pTwo"
+      ". . secondRoundPOne firstRoundPOne nameRound nameRound firstRoundPTwo secondRoundPTwo . ."
+      "namePOne namePOne namePOne namePOne namePOne namePOne namePOne namePOne namePOne namePOne"
+      "resultPOne resultPOne resultPOne resultPOne resultPOne resultPOne resultPOne resultPOne resultPOne resultPOne"
+      "firstDicePOne firstDicePOne secondDicePOne secondDicePOne thirdDicePOne thirdDicePOne fourthDicePOne fourthDicePOne fifthDicePOne fifthDicePOne"
+      ". . . button button button button . . ."
+      "namePTwo namePTwo namePTwo namePTwo namePTwo namePTwo namePTwo namePTwo namePTwo namePTwo"
+      "resultPTwo resultPTwo resultPTwo resultPTwo resultPTwo resultPTwo resultPTwo resultPTwo resultPTwo resultPTwo"
+      "firstDicePTwo firstDicePTwo secondDicePTwo secondDicePTwo thirdDicePTwo thirdDicePTwo fourthDicePTwo fourthDicePTwo fifthDicePTwo fifthDicePTwo"
+      }
+      .scoreBoardOne{
+        margin-top:0px;
+      }
+      .scoreBoardTwo{
+        margin-top:0px;
+      }
+      .firstRoundPOne,.secondRoundPOne{
+        margin-right:0px;
+        }
+        .firstRoundPTwo,.secondRoundPTwo{
+          margin-left:0px;
+        }
 }
