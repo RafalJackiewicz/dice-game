@@ -168,6 +168,11 @@ h3 {
   height: auto;
 }
 
+.scoreBoardTwo>input{
+  height:22px;
+  width:22px;
+}
+
 @media screen and (max-width:940px) {
   .boardGame {
     grid-template-columns: repeat(10, 1fr);

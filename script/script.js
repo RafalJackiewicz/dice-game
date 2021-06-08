@@ -1,5 +1,21 @@
-let playerOne=[];
-let playerTwo=[];
+"use strict";
+let playerOne=[1,1,2,3,4];
+let playerTwo=[5,6,5,4,3];
+let players=[playerOne,playerTwo];
+let currentRound=0;
+let playWithComputer=false;
+
+// pictures in variables
+const diceNull='dice-null.png';
+const diceOne='dice-one.png'
+const diceTwo='dice-two.png'
+const diceThree='dice-three.png'
+const diceFour='dice-four.png'
+const diceFive='dice-five.png'
+const diceSix='dice-six.png'
+const allDices=[diceOne,diceTwo,diceThree,diceFour,diceFive,diceSix];
+
+//which dice want players change?
 let changeTheRollPlayerOne=[0,0,0,0,0];
 let changeTheRollPlayerTwo=[0,0,0,0,0];
 let kindOfRolling={
@@ -13,36 +29,101 @@ let kindOfRolling={
     "High card":0
 }
 
-// function firstTurn(player){
-//     var i=0
-//     while (i<5){
-//         player[i]=Math.ceil(Math.random()*6);
-//         i++
-//     }
-//     return player;
-// }
+let dices=document.querySelectorAll(".dice");
+const buttonRoll=document.querySelector(".buttonRoll>input");
+buttonRoll.addEventListener("click", ()=> currentRound++);
 
-// function changeTheRoll(changeTheRollPlayerX){
-//     var i;
-//     for (i=0;i<5;i++){
-//         changeTheRollPlayerX[i]=prompt("Czy chcesz rzucić kością " + i +" jeszcze raz?");
-//         if (changeTheRollPlayerX[i]=="0"){
-//             changeTheRollPlayerX[i]=0;
-//         }
-//     }
-//     return changeTheRollPlayerX;
-// }
+const headPlayerTwoFirst=document.querySelector(".scoreBoardTwo>h2");
+const headPlayerTwoSecond=document.querySelector(".nameOfPlayerTwo>h2");
+const checkBox=document.querySelector("input[type=checkbox]");
+checkBox.addEventListener("change",()=>{
+  if (checkBox.checked){
+    playWithComputer=false;
+    headPlayerTwoFirst.innerHTML="Player 2";
+    headPlayerTwoSecond.innerHTML="Player 2";
+  } else {
+    playWithComputer=true;
+    headPlayerTwoFirst.innerHTML="Computer";
+    headPlayerTwoSecond.innerHTML="Computer";
+  }
+});
 
-// function secondTurn(player,changeTheRoll){
-//     var j=0
-//     while (j<5){
-//         if (changeTheRoll[j]){
-//           player[j]=Math.ceil(Math.random()*6);
-//         }
-//         j++
-//         }
-//     return player;
-//     }
+
+//dodać animację jak losują się kości
+function changePictureOfDice(){
+  let i=0;
+  for (const dice of dices){
+    let number=players[Math.floor(i/5)][i%5];
+    switch (number){
+      case 0:
+        dice.setAttribute("src",`img/${diceNull}`);
+        break;
+      case 1:
+        dice.setAttribute("src",`img/${diceOne}`);
+        break;
+      case 2:
+        dice.setAttribute("src",`img/${diceTwo}`);
+        break;
+      case 3:
+        dice.setAttribute("src",`img/${diceThree}`);
+        break;
+      case 4:
+        dice.setAttribute("src",`img/${diceFour}`);
+        break;
+      case 5:
+        dice.setAttribute("src",`img/${diceFive}`);
+        break;
+      case 6:
+        dice.setAttribute("src",`img/${diceSix}`);
+        break;
+    }
+    i++;
+  }
+}
+changePictureOfDice();
+
+
+function startTheGame(currentRound){
+
+}
+
+// ------------------------------------------------------------------------------------------
+
+/*
+
+zmienić zmienne na let
+
+function firstTurn(player){
+    var i=0
+    while (i<5){
+        player[i]=Math.ceil(Math.random()*6);
+        i++
+    }
+    return player;
+}
+
+function changeTheRoll(changeTheRollPlayerX){
+    var i;
+    for (i=0;i<5;i++){
+        changeTheRollPlayerX[i]=prompt("Czy chcesz rzucić kością " + i +" jeszcze raz?");
+        if (changeTheRollPlayerX[i]=="0"){
+            changeTheRollPlayerX[i]=0;
+        }
+    }
+    return changeTheRollPlayerX;
+}
+
+function secondTurn(player,changeTheRoll){
+    var j=0
+    while (j<5){
+        if (changeTheRoll[j]){
+          player[j]=Math.ceil(Math.random()*6);
+        }
+        j++
+        }
+    return player;
+    }
+
 
 //zmienna testowa
 var zmienna=[6,2,3,4,5];
@@ -195,3 +276,6 @@ console.log(checkTheResult(zmienna));
 // console.log("----lista kości które się zmieniły-----";)
 // console.log(changeTheRollPlayerOne);
 // console.log(changeTheRollPlayerTwo);
+
+
+*/
