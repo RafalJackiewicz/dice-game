@@ -1,6 +1,6 @@
 "use strict";
-let playerOne=[1,1,2,3,4];
-let playerTwo=[5,6,5,4,3];
+let playerOne=[0,0,0,0,0];
+let playerTwo=[0,0,0,0,0];
 let players=[playerOne,playerTwo];
 let currentRound=0;
 let playWithComputer=false;
@@ -29,13 +29,21 @@ let kindOfRolling={
     "High card":0
 }
 
+//declare a variables from html
 let dices=document.querySelectorAll(".dice");
 const buttonRoll=document.querySelector(".buttonRoll>input");
-buttonRoll.addEventListener("click", ()=> currentRound++);
-
 const headPlayerTwoFirst=document.querySelector(".scoreBoardTwo>h2");
 const headPlayerTwoSecond=document.querySelector(".nameOfPlayerTwo>h2");
 const checkBox=document.querySelector("input[type=checkbox]");
+const countWinsPlayerOne=document.querySelector('.countWinsPlayerOne');
+const countWinsPlayerTwo=document.querySelector('.countWinsPlayerTwo');
+const resultOfPlayerOne=document.querySelector('.resultOfPlayerOne>h2');
+const resultOfPlayerTwo=document.querySelector('resultOfPlayerTwo>h2');
+const firstRoundPOne=document.querySelector('.firstRoundPOne>h3');
+const firstRoundPTwo=document.querySelector('.firstRoundPTwo>h3');
+const secondRoundPOne=document.querySelector('.secondRoundPOne>h3');
+const secondRoundPTwo=document.querySelector('.secondRoundPTwo>h3');
+
 checkBox.addEventListener("change",()=>{
   if (checkBox.checked){
     playWithComputer=false;
@@ -48,7 +56,7 @@ checkBox.addEventListener("change",()=>{
   }
 });
 
-
+//Function show correct pictures of Dice on browser
 //dodać animację jak losują się kości
 function changePictureOfDice(){
   let i=0;
@@ -80,12 +88,19 @@ function changePictureOfDice(){
     i++;
   }
 }
-changePictureOfDice();
+
+//Event Listeners
+buttonRoll.addEventListener("click", ()=>{
+  currentRound++;
+})
+buttonRoll.addEventListener("click",()=>{
+  switch (currentRound){
+    case 1:
+
+  }
+})
 
 
-function startTheGame(currentRound){
-
-}
 
 // ------------------------------------------------------------------------------------------
 
