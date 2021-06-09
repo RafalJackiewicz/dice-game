@@ -1,5 +1,5 @@
 body {
-  background-color: #bdffce;
+  background-color: #c4ffd3;
   font-family: 'Yanone Kaffeesatz', sans-serif;
 }
 
@@ -39,8 +39,6 @@ h3 {
     "firstDicePOne secondDicePOne thirdDicePOne fourthDicePOne fifthDicePOne secondRoundPOne secondRoundPTwo firstDicePTwo secondDicePTwo thirdDicePTwo fourthDicePTwo fifthDicePTwo"
 }
 
-
-
 .scoreBoardOne {
   grid-area: pOne;
   text-align: right;
@@ -79,6 +77,7 @@ h3 {
   grid-area: resultPOne;
   margin-left: auto;
   margin-right: auto;
+  min-height: 52px;
 }
 
 .firstDicePlayerOne {
@@ -136,6 +135,7 @@ h3 {
   grid-area: resultPTwo;
   margin-left: auto;
   margin-right: auto;
+  min-height: 52px;
 }
 
 .firstDicePlayerTwo {
@@ -168,17 +168,17 @@ h3 {
   height: auto;
 }
 
-.scoreBoardTwo>input{
-  height:22px;
-  width:22px;
+.scoreBoardTwo>input {
+  height: 22px;
+  width: 22px;
 }
 
 @media screen and (max-width:940px) {
   .boardGame {
     grid-template-columns: repeat(10, 1fr);
-    grid-template-rows: repeat(11,auto);
-    grid-column-gap:10px;
-    grid-row-gap:0px;
+    grid-template-rows: repeat(11, auto);
+    grid-column-gap: 10px;
+    grid-row-gap: 0px;
     grid-template-areas:
       "pOne pOne pOne pOne pOne pTwo pTwo pTwo pTwo pTwo"
       ". . secondRoundPOne firstRoundPOne nameRound nameRound firstRoundPTwo secondRoundPTwo . ."
@@ -189,17 +189,21 @@ h3 {
       "namePTwo namePTwo namePTwo namePTwo namePTwo namePTwo namePTwo namePTwo namePTwo namePTwo"
       "resultPTwo resultPTwo resultPTwo resultPTwo resultPTwo resultPTwo resultPTwo resultPTwo resultPTwo resultPTwo"
       "firstDicePTwo firstDicePTwo secondDicePTwo secondDicePTwo thirdDicePTwo thirdDicePTwo fourthDicePTwo fourthDicePTwo fifthDicePTwo fifthDicePTwo"
-      }
-      .scoreBoardOne{
-        margin-top:0px;
-      }
-      .scoreBoardTwo{
-        margin-top:0px;
-      }
-      .firstRoundPOne,.secondRoundPOne{
-        margin-right:0px;
-        }
-        .firstRoundPTwo,.secondRoundPTwo{
-          margin-left:0px;
-        }
+  }
+
+  .scoreBoardOne {
+    margin-top: 0px;
+  }
+
+  .scoreBoardTwo {
+    margin-top: 0px;
+  }
+
+  .firstRoundPOne, .secondRoundPOne {
+    margin-right: 0px;
+  }
+
+  .firstRoundPTwo, .secondRoundPTwo {
+    margin-left: 0px;
+  }
 }
