@@ -79,6 +79,129 @@ function changePictureOfDice() {
     i++;
   }
 }
+//Function which draw lots dices
+function firstTurn(player){
+    let i=0
+    while (i<5){
+        player[i]=Math.ceil(Math.random()*6);
+        i++
+    }
+    return player;
+}
+
+
+
+
+function checkTheResult(handOfDice){
+    let result={1:0,2:0,3:0,4:0,5:0,6:0};
+    let arrangementOfCards
+    let powerOfCards
+    let keepLooking=true;
+    let resultOfCards
+    for (let i=0;i<5;i++){
+        result[handOfDice[i]]+=1;
+    }
+    //check the poker hand
+    for (let i=1;i<=6;i++){
+        if (result[i]==5 && keepLooking){
+            arrangementOfCards=kindOfRolling["Poker"];
+            powerOfCards=i;
+            let resultOfCards=[arrangementOfCards,powerOfCards];
+            return resultOfCards;
+            keepLooking=false;
+            break;
+        }
+    }
+    //check the four of the kind
+    for (let i=1;i<=6;i++){
+        if (result[i]==4 && keepLooking){
+            arrangementOfCards=kindOfRolling["Four of a kind"];
+            powerOfCards=i;
+            let resultOfCards=[arrangementOfCards,powerOfCards];
+            return resultOfCards;
+            keepLooking=false;
+            break;
+        }
+    }
+    //check full house
+    for (let i=1;i<=6;i++){
+        if (result[i]==3 && keepLooking){
+            for (let j=1;j<=6;j++){
+                if (result[j]==2 && keepLooking){
+                    arrangementOfCards=kindOfRolling["Full house"];
+                    powerOfCards=i;
+                    let resultOfCards=[arrangementOfCards,powerOfCards];
+                    return resultOfCards;
+                    keepLooking=false;
+                    break;
+                }
+            }
+        break;
+        }
+    }
+    //check straight
+    if (result[1]==1 && result[2]==1 && result[3]==1 && result[4]==1 && result[5]==1 && keepLooking){
+        arrangementOfCards=kindOfRolling["Straight"];
+        let resultOfCards=[arrangementOfCards,5];
+        return resultOfCards;
+        keepLooking=false;
+    }
+    else if (result[2]==1 && result[3]==1 && result[4]==1 && result[5]==1 && result[6]==1 &&keepLooking){
+        arrangementOfCards=kindOfRolling["Straight"];
+        let resultOfCards=[arrangementOfCards,6];
+        return resultOfCards;
+        keepLooking=false;
+    }
+    //check three of a kind
+    for (let i=1;i<=6;i++){
+        if (result[i]==3 && keepLooking){
+            arrangementOfCards=kindOfRolling["Three of a kind"];
+            powerOfCards=i;
+            let resultOfCards=[arrangementOfCards,powerOfCards];
+            return resultOfCards;
+            keepLooking=false;
+            break;
+        }
+    }
+    //check two pair
+    for (let i=1;i<=6 && keepLooking;i++){
+        if (result[i]==2){
+            for (let j=1;j<=6;j++){
+                if (result[j]==2 &&i!=j){
+                    arrangementOfCards=kindOfRolling["Two pair"];
+                    powerOfCards=Math.max(i,j);
+                    let resultOfCards=[arrangementOfCards,powerOfCards];
+                    return resultOfCards;
+                    keepLooking=false;
+                    break;
+                }
+            }
+        break;
+        }
+    }
+    //check one pair
+    for (let i=1;i<=6;i++){
+        if (result[i]==2 && keepLooking){
+            arrangementOfCards=kindOfRolling["One pair"];
+            powerOfCards=i;
+            let resultOfCards=[arrangementOfCards,powerOfCards];
+            return resultOfCards;
+            keepLooking=false;
+            break;
+        }
+    }
+    //check high card
+    for (let i=6;i>=1;i--){
+        if (result[i]==1 && keepLooking){
+            arrangementOfCards=kindOfRolling["High card"];
+            powerOfCards=i;
+            let resultOfCards=[arrangementOfCards,powerOfCards];
+            return resultOfCards;
+            keepLooking=false;
+            break;
+        }
+    }
+}
 
 //Event Listeners
 checkBox.addEventListener("change", () => {
@@ -95,14 +218,26 @@ checkBox.addEventListener("change", () => {
 
 buttonRoll.addEventListener("click", () => {
   currentRound++;
-})
-buttonRoll.addEventListener("click", () => {
   switch (currentRound) {
     case 1:
       firstRoundPOne.style.color = `${colorNewRound}`;
+      firstTurn(playerOne);
+      changePictureOfDice();
+
+
+
+
+
+
+
       break;
     case 2:
       firstRoundPTwo.style.color = `${colorNewRound}`;
+      firstTurn(playerTwo);
+      changePictureOfDice();
+
+
+
       break;
     case 3:
       console.log('wybór kości do zmiany gracza pierwszego');
@@ -137,14 +272,7 @@ buttonRoll.addEventListener("click", () => {
 
 zmienić zmienne na let
 
-function firstTurn(player){
-    var i=0
-    while (i<5){
-        player[i]=Math.ceil(Math.random()*6);
-        i++
-    }
-    return player;
-}
+
 
 function changeTheRoll(changeTheRollPlayerX){
     var i;
@@ -172,106 +300,6 @@ function secondTurn(player,changeTheRoll){
 //zmienna testowa
 var zmienna=[6,2,3,4,5];
 
-function checkTheResult(handOfDice){
-    let result={1:0,2:0,3:0,4:0,5:0,6:0};
-    let arrangementOfCards
-    let powerOfCards
-    let keepLooking=true;
-    for (let i=0;i<5;i++){
-        result[handOfDice[i]]+=1;
-    }
-    //check the poker hand
-    for (let i=1;i<=6;i++){
-        if (result[i]==5 && keepLooking){
-            arrangementOfCards=kindOfRolling["Poker"];
-            powerOfCards=i;
-            return [arrangementOfCards,powerOfCards];
-            keepLooking=false;
-            break;
-        }
-    }
-    //check the four of the kind
-    for (let i=1;i<=6;i++){
-        if (result[i]==4 && keepLooking){
-            arrangementOfCards=kindOfRolling["Four of a kind"];
-            powerOfCards=i;
-            return [arrangementOfCards,powerOfCards];
-            keepLooking=false;
-            break;
-        }
-    }
-    //check full house
-    for (let i=1;i<=6;i++){
-        if (result[i]==3 && keepLooking){
-            for (let j=1;j<=6;j++){
-                if (result[j]==2 && keepLooking){
-                    arrangementOfCards=kindOfRolling["Full house"];
-                    powerOfCards=i;
-                    return [arrangementOfCards,powerOfCards];
-                    keepLooking=false;
-                    break;
-                }
-            }
-        break;
-        }
-    }
-    //check straight
-    if (result[1]==1 && result[2]==1 && result[3]==1 && result[4]==1 && result[5]==1 && keepLooking){
-        arrangementOfCards=kindOfRolling["Straight"];
-        return [arrangementOfCards,5];
-        keepLooking=false;
-    }
-    else if (result[2]==1 && result[3]==1 && result[4]==1 && result[5]==1 && result[6]==1 &&keepLooking){
-        arrangementOfCards=kindOfRolling["Straight"];
-        return [arrangementOfCards,6];
-        keepLooking=false;
-    }
-    //check three of a kind
-    for (let i=1;i<=6;i++){
-        if (result[i]==3 && keepLooking){
-            arrangementOfCards=kindOfRolling["Three of a kind"];
-            powerOfCards=i;
-            return [arrangementOfCards,powerOfCards];
-            keepLooking=false;
-            break;
-        }
-    }
-    //check two pair
-    for (let i=1;i<=6 && keepLooking;i++){
-        if (result[i]==2){
-            for (let j=1;j<=6;j++){
-                if (result[j]==2 &&i!=j){
-                    arrangementOfCards=kindOfRolling["Two pair"];
-                    powerOfCards=Math.max(i,j);
-                    return [arrangementOfCards,powerOfCards];
-                    keepLooking=false;
-                    break;
-                }
-            }
-        break;
-        }
-    }
-    //check one pair
-    for (let i=1;i<=6;i++){
-        if (result[i]==2 && keepLooking){
-            arrangementOfCards=kindOfRolling["One pair"];
-            powerOfCards=i;
-            return [arrangementOfCards,powerOfCards];
-            keepLooking=false;
-            break;
-        }
-    }
-    //check high card
-    for (let i=6;i>=1;i--){
-        if (result[i]==1 && keepLooking){
-            arrangementOfCards=kindOfRolling["High card"];
-            powerOfCards=i;
-            return [arrangementOfCards,powerOfCards];
-            keepLooking=false;
-            break;
-        }
-    }
-}
 
 function comparisonOfResults(playerOne, playerTwo){
     if (playerOne[0]>playerTwo[0]){
