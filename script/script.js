@@ -1,20 +1,32 @@
 "use strict";
+//declare a variables from html
+let dices = document.querySelectorAll(".dice");
+const dicesOne=document.querySelectorAll('.diceOne');
+const dicesTwo=document.querySelectorAll('.diceTwo');
+const buttonRoll = document.querySelector(".buttonRoll>input");
+const headPlayerTwoFirst = document.querySelector(".scoreBoardTwo>h2");
+const headPlayerTwoSecond = document.querySelector(".nameOfPlayerTwo>h2");
+const checkBox = document.querySelector("input[type=checkbox]");
+const countWinsPlayerOne = document.querySelector('.countWinsPlayerOne');
+const countWinsPlayerTwo = document.querySelector('.countWinsPlayerTwo');
+const resultOfPlayerOne = document.querySelector('.resultOfPlayerOne>h3');
+const resultOfPlayerTwo = document.querySelector('.resultOfPlayerTwo>h3');
+const firstRoundPOne = document.querySelector('.firstRoundPOne>h3');
+const firstRoundPTwo = document.querySelector('.firstRoundPTwo>h3');
+const secondRoundPOne = document.querySelector('.secondRoundPOne>h3');
+const secondRoundPTwo = document.querySelector('.secondRoundPTwo>h3');
+
+
 let playerOne = [0, 0, 0, 0, 0];
 let playerTwo = [0, 0, 0, 0, 0];
 let players = [playerOne, playerTwo];
+let playerOneResult
+let playerTwoResult
 let currentRound = 0;
 let playWithComputer = false;
 const colorNewRound = '#d99d3d';
-
-// pictures in variables
-const diceNull = 'dice-null.png';
-const diceOne = 'dice-one.png'
-const diceTwo = 'dice-two.png'
-const diceThree = 'dice-three.png'
-const diceFour = 'dice-four.png'
-const diceFive = 'dice-five.png'
-const diceSix = 'dice-six.png'
-const allDices = [diceOne, diceTwo, diceThree, diceFour, diceFive, diceSix];
+let countWinsPOne=0;
+let countWinsPTwo=0;
 
 //which dice want players change?
 let changeTheRollPlayerOne = [0, 0, 0, 0, 0];
@@ -30,20 +42,15 @@ let kindOfRolling = {
   "High card": 0
 }
 
-//declare a variables from html
-let dices = document.querySelectorAll(".dice");
-const buttonRoll = document.querySelector(".buttonRoll>input");
-const headPlayerTwoFirst = document.querySelector(".scoreBoardTwo>h2");
-const headPlayerTwoSecond = document.querySelector(".nameOfPlayerTwo>h2");
-const checkBox = document.querySelector("input[type=checkbox]");
-const countWinsPlayerOne = document.querySelector('.countWinsPlayerOne');
-const countWinsPlayerTwo = document.querySelector('.countWinsPlayerTwo');
-const resultOfPlayerOne = document.querySelector('.resultOfPlayerOne>h2');
-const resultOfPlayerTwo = document.querySelector('resultOfPlayerTwo>h2');
-const firstRoundPOne = document.querySelector('.firstRoundPOne>h3');
-const firstRoundPTwo = document.querySelector('.firstRoundPTwo>h3');
-const secondRoundPOne = document.querySelector('.secondRoundPOne>h3');
-const secondRoundPTwo = document.querySelector('.secondRoundPTwo>h3');
+// pictures in variables
+const diceNull = 'dice-null.png';
+const diceOne = 'dice-one.png'
+const diceTwo = 'dice-two.png'
+const diceThree = 'dice-three.png'
+const diceFour = 'dice-four.png'
+const diceFive = 'dice-five.png'
+const diceSix = 'dice-six.png'
+const allDices = [diceOne, diceTwo, diceThree, diceFour, diceFive, diceSix];
 
 
 
@@ -88,9 +95,6 @@ function firstTurn(player){
     }
     return player;
 }
-
-
-
 
 function checkTheResult(handOfDice){
     let result={1:0,2:0,3:0,4:0,5:0,6:0};
@@ -203,6 +207,61 @@ function checkTheResult(handOfDice){
     }
 }
 
+function giveTheResult(playerResult, playerNumber){
+  let keyResult=Object.keys(kindOfRolling);
+  if (playerNumber==1){
+    for (let i=0;i<keyResult.length;i++){
+      if (kindOfRolling[keyResult[i]]===playerResult[0]){
+        resultOfPlayerOne.innerHTML=`${keyResult[i]}`;
+        break;
+      }
+    }
+  } else {
+    for (let i=0;i<keyResult.length;i++){
+      if (kindOfRolling[keyResult[i]]===playerResult[0]){
+        resultOfPlayerTwo.innerHTML=`${keyResult[i]}`;
+        break;
+      }
+    }
+  }
+}
+
+function secondTurn(player,changeTheRoll){
+  let i=0
+  while (i<5){
+    if (changeTheRoll[i]===1){
+      player[i]=Math.ceil(Math.random()*6);
+    }
+    i++;
+  }
+  return player;
+};
+
+function comparisonOfResults(playerOneResultResult, playerTwoResultResult){
+    if (playerOneResult[0]>playerTwoResult[0]){
+        resultOfPlayerOne.innerHTML='Player 1 win!';
+        countWinsPOne++
+        countWinsPlayerOne.innerHTML=`${countWinsPOne}`;
+    } else if (playerOneResult[0]<playerTwoResult[0]){
+      resultOfPlayerOne.innerHTML='Player 2 win!';
+      countWinsPTwo++
+      countWinsPlayerTwo.innerHTML=`${countWinsPTwo}`;
+    } else{
+        if (playerOneResult[1]>playerTwoResult[1]){
+          resultOfPlayerOne.innerHTML='Player 1 win!';
+          countWinsPOne++
+          countWinsPlayerOne.innerHTML=`${countWinsPOne}`;
+        } else if (playerOneResult[1]<playerTwoResult[1]){
+          resultOfPlayerOne.innerHTML='Player 2 win!';
+          countWinsPTwo++
+          countWinsPlayerTwo.innerHTML=`${countWinsPTwo}`;
+        } else {
+          resultOfPlayerOne.innerHTML='Draw!';
+        }
+    }
+
+}
+
 //Event Listeners
 checkBox.addEventListener("change", () => {
   if (checkBox.checked) {
@@ -216,138 +275,82 @@ checkBox.addEventListener("change", () => {
   }
 });
 
+
 buttonRoll.addEventListener("click", () => {
   currentRound++;
+  console.log(currentRound);
   switch (currentRound) {
     case 1:
       firstRoundPOne.style.color = `${colorNewRound}`;
       firstTurn(playerOne);
       changePictureOfDice();
-
-
-
-
-
-
-
+      playerOneResult=checkTheResult(playerOne);
+      giveTheResult(playerOneResult,1);
       break;
     case 2:
       firstRoundPTwo.style.color = `${colorNewRound}`;
       firstTurn(playerTwo);
       changePictureOfDice();
-
-
-
+      playerTwoResult=checkTheResult(playerTwo);
+      giveTheResult(playerTwoResult,2);
+      resultOfPlayerOne.innerHTML='Select which dices want to change?';
+        for (let i=0;i<dicesOne.length;i++){
+          dicesOne[i].addEventListener('click',()=>{
+            dicesOne[i].toggleAttribute('selected');
+            if (dicesOne[i].hasAttribute('selected')){
+              dicesOne[i].style.opacity='0.7';
+              changeTheRollPlayerOne[i]=1;
+            } else {
+              dicesOne[i].style.opacity='initial';
+              changeTheRollPlayerOne[i]=0;
+            }
+          });
+        }
       break;
     case 3:
-      console.log('wybór kości do zmiany gracza pierwszego');
+      secondRoundPOne.style.color = `${colorNewRound}`;
+      secondTurn(playerOne,changeTheRollPlayerOne);
+      changePictureOfDice();
+      playerOneResult=checkTheResult(playerOne);
+      giveTheResult(playerOneResult,1);
+      for (let i=0;i<dicesOne.length;i++){
+        dicesOne[i].style.opacity='initial';
+      };
+      resultOfPlayerTwo.innerHTML='Select which dices want to change?';
+        for (let i=0;i<dicesTwo.length;i++){
+          dicesTwo[i].addEventListener('click',()=>{
+            dicesTwo[i].toggleAttribute('selected');
+            if (dicesTwo[i].hasAttribute('selected')){
+              dicesTwo[i].style.opacity='0.7';
+              changeTheRollPlayerOne[i]=1;
+            } else {
+              dicesTwo[i].style.opacity='initial';
+              changeTheRollPlayerOne[i]=0;
+            }
+          });
+        }
       break;
     case 4:
-      console.log('wybór kości do zmiany gracza drugiego');
+      secondRoundPTwo.style.color = `${colorNewRound}`;
+      secondTurn(playerTwo,changeTheRollPlayerTwo);
+      changePictureOfDice();
+      playerTwoResult=checkTheResult(playerTwo);
+      giveTheResult(playerTwoResult,2);
+      for (let i=0;i<dicesTwo.length;i++){
+        dicesTwo[i].style.opacity='initial';
+      };
+      comparisonOfResults(playerOneResult,playerTwoResult);
       break;
     case 5:
-      secondRoundPOne.style.color = `${colorNewRound}`;
+    firstRoundPOne.style.color = 'initial';
+    firstRoundPTwo.style.color = 'initial';
+    secondRoundPOne.style.color = 'initial';
+    secondRoundPTwo.style.color = 'initial';
+    currentRound = 0;
+    resultOfPlayerOne.innerHTML='';
+    resultOfPlayerTwo.innerHTML='';
       break;
-    case 6:
-      secondRoundPTwo.style.color = `${colorNewRound}`;
-      break;
-    case 7:
-      firstRoundPOne.style.color = 'initial';
-      firstRoundPTwo.style.color = 'initial';
-      secondRoundPOne.style.color = 'initial';
-      secondRoundPTwo.style.color = 'initial';
-      currentRound = 0;
-      break;
-
-
-
   }
 })
 
-
-
-// ------------------------------------------------------------------------------------------
-
-/*
-
-zmienić zmienne na let
-
-
-
-function changeTheRoll(changeTheRollPlayerX){
-    var i;
-    for (i=0;i<5;i++){
-        changeTheRollPlayerX[i]=prompt("Czy chcesz rzucić kością " + i +" jeszcze raz?");
-        if (changeTheRollPlayerX[i]=="0"){
-            changeTheRollPlayerX[i]=0;
-        }
-    }
-    return changeTheRollPlayerX;
-}
-
-function secondTurn(player,changeTheRoll){
-    var j=0
-    while (j<5){
-        if (changeTheRoll[j]){
-          player[j]=Math.ceil(Math.random()*6);
-        }
-        j++
-        }
-    return player;
-    }
-
-
-//zmienna testowa
-var zmienna=[6,2,3,4,5];
-
-
-function comparisonOfResults(playerOne, playerTwo){
-    if (playerOne[0]>playerTwo[0]){
-        console.log("Gracz pierwszy wygrał");
-    } else if (playerOne[0]<playerTwo[0]){
-        console.log("Gracz drugi wygrał");
-    } else{
-        if (playerOne[1]>playerTwo[1]){
-            console.log("Gracz pierwszy wygrał");
-        } else if (playerOne[1]<playerTwo[1]){
-            console.log("Gracz drugi wygrał");
-        } else {
-            console.log("Remis");
-        }
-    }
-
-}
-
-//test funkcji
-console.log(comparisonOfResults([4,3],[5,3]));
-
-
-
-console.log(checkTheResult(zmienna));
-
-
-
-// console.log("-----Pierwsza runda-----")
-// console.log("Gracz pierwszy:")
-// playerOne=firstTurn(playerOne);
-// console.log(playerOne);
-// console.log("Gracz drugi:")
-// playerTwo=firstTurn(playerTwo);
-// console.log(playerTwo);
-
-// console.log("-----Druga runda-----");
-// console.log("Gracz pierwszy:")
-// changeTheRollPlayerOne=changeTheRoll(changeTheRollPlayerOne);
-// playerOne=secondTurn(playerOne, changeTheRollPlayerOne);
-// console.log(playerOne);
-// console.log("Gracz drugi:");
-// changeTheRollPlayerTwo=changeTheRoll(changeTheRollPlayerTwo);
-// playerTwo=secondTurn(playerTwo, changeTheRollPlayerTwo);
-// console.log(playerTwo);
-
-// console.log("----lista kości które się zmieniły-----";)
-// console.log(changeTheRollPlayerOne);
-// console.log(changeTheRollPlayerTwo);
-
-
-*/
+//Rozwiązać problem niemożliwości zaznaczenia kości w co drugiej rundzie
